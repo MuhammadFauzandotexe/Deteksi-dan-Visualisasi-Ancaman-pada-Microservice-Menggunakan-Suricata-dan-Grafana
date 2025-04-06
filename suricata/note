@@ -1,0 +1,11 @@
+/var/lib/suricata/rule/
+
+sum by (attack_type) (
+  count_over_time(
+    {job="suricata"}
+    | json
+    | line_format "{{.message}}"
+    | regexp "(?P<attack_type>SQL Injection|XSS Attack|Brute Force|RCE|LFI)"
+    [60m]
+  )
+)

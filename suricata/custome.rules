@@ -1,0 +1,22 @@
+# SQL Injection
+alert http any any -> any any (msg:"SQL Injection Detected"; content:"' OR '1'='1"; nocase; classtype:web-application-attack; sid:1000002; rev:1;)
+
+# Cross-Site Scripting (XSS)
+alert http any any -> any any (msg:"XSS Attack Detected"; content:"<script>"; nocase; classtype:web-application-attack; sid:1000003; rev:1;)
+
+# Brute Force Login Attempt
+alert http any any -> any any (msg:"Brute Force Login Attempt"; flow:to_server,established; content:"POST"; http_method; content:"login"; http_uri; threshold:type threshold, track by_src, count 5, seconds 30; classtype:attempted-user; sid:1000004; rev:1;)
+
+# Remote Code Execution (RCE) via PHP
+alert http any any -> any any (msg:"RCE Detected - PHP exec() Function"; content:"exec("; nocase; classtype:attempted-admin; sid:1000005; rev:1;)
+
+# Remote Code Execution (RCE) via Shell Commands
+alert http any any -> any any (msg:"RCE Detected - Suspicious Shell Command"; content:"/bin/sh"; nocase; classtype:attempted-admin; sid:1000006; rev:1;)
+alert http any any -> any any (msg:"RCE Detected - System Command Execution"; content:"system("; nocase; classtype:attempted-admin; sid:1000007; rev:1;)
+
+# Local File Inclusion (LFI)
+alert http any any -> any any (msg:"LFI Attempt - /etc/passwd"; content:"/etc/passwd"; nocase; classtype:attempted-admin; sid:1000008; rev:1;)
+alert http any any -> any any (msg:"LFI Attempt - PHP Wrappers"; content:"php://"; nocase; classtype:attempted-admin; sid:1000009; rev:1;)
+
+# Brute Force Login via Basic Authentication
+alert http any any -> any any (msg:"Brute Force Login Attempt - Basic Auth"; content:"Authorization: Basic"; http_header; threshold:type threshold, track by_src, count 5, seconds 30; classtype:attempted-user; sid:1000010; rev:1;)

