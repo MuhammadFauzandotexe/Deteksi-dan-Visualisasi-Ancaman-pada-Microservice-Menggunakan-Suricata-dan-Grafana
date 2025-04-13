@@ -38,6 +38,12 @@ sudo suricata -c /etc/suricata/suricata.yaml -i eth0 --pcap
 sudo suricata -c /etc/suricata/suricata.yaml -i eth0
 
 
+sudo apt install suricata-update -y
+
+sudo suricata-update
+
+
+
 default-rule-path: /var/lib/suricata/rules
 
 rule-files:

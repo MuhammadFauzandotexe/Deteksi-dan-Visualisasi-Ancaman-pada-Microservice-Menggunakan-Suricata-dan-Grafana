@@ -1,11 +1,24 @@
-sudo apt update
-sudo apt install musl
+sudo rm /etc/apt/sources.list.d/grafana.list
+sudo rm /etc/apt/sources.list.d/grafana-oss.list
+sudo rm /etc/apt/sources.list.d/*grafana*
 
-wget https://dl.grafana.com/enterprise/release/grafana-enterprise_10.3.1_amd64.deb
-sudo dpkg -i grafana-enterprise_10.3.1_amd64.deb
+sudo mkdir -p /usr/share/keyrings
+wget -q -O - https://packages.grafana.com/gpg.key | sudo gpg --dearmor -o /usr/share/keyrings/grafana.gpg
+
+echo "deb [signed-by=/usr/share/keyrings/grafana.gpg] https://packages.grafana.com/oss/deb stable main" \
+| sudo tee /etc/apt/sources.list.d/grafana.list
+
+sudo apt update
+sudo apt install grafana
 
 sudo systemctl start grafana-server
 sudo systemctl enable grafana-server
 
 
-#rate({job="suricata", source="eve-json"}[$__auto])
+Kalau sudah berhasil, akses Grafana di browser:
+
+🔗 http://localhost:3000
+atau
+🔗 http://[IP_ADDRESS_SERVER]:3000
+
+Login: admin / admin

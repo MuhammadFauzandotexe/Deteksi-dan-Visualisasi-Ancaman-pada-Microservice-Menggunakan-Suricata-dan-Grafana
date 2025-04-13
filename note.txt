@@ -1,0 +1,2 @@
+rm -rf /var/log/suricata/eve.json
+rm -rf /var/log/suricata/fast.log
