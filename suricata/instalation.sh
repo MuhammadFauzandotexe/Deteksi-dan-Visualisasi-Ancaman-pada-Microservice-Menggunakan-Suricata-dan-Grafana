@@ -37,3 +37,9 @@ sudo suricata -c /etc/suricata/suricata.yaml -i eth0 --pcap
 
 sudo suricata -c /etc/suricata/suricata.yaml -i eth0
 
+
+default-rule-path: /var/lib/suricata/rules
+
+rule-files:
+  - test.rules
+
