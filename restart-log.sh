@@ -8,6 +8,8 @@ systemctl stop promtail
 systemctl stop grafana-server
 systemctl stop suricata
 
+sudo rm -rf /tmp/loki
+sudo rm /tmp/positions.yaml
 rm -rf /tmp/positions.yaml
 rm -rf  /var/log/suricata/fast.log
 rm -rf /var/log/suricata/suricata.log
