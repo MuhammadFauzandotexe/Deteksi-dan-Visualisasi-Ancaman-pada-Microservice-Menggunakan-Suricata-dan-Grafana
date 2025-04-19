@@ -1,7 +1,7 @@
-pkill promtail
-pkill loki
-pkill grafana-server
-pkill suricata
+#pkill promtail
+#pkill loki
+#pkill grafana-server
+#pkill suricata
 
 systemctl stop loki
 systemctl stop promtail
