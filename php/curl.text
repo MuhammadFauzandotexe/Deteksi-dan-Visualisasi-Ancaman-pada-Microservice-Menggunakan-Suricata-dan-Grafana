@@ -1,0 +1,34 @@
+# Test SQL Injection rule
+curl "http://localhost/api.php/search?q=%27%20OR%20%271%27%3D%271"
+
+# Test XSS rule
+curl "http://localhost/api.php/comment?comment=%3Cscript%3Ealert(1)%3C/script%3E"
+
+# Test Brute Force Login rule (lakukan 5x dalam 30 detik)
+for i in {1..5}; do
+  curl -X POST "http://localhost/api.php/login" \
+  -H "Content-Type: application/json" \
+  -d '{"username":"user'$i'","password":"pass'$i'"}'
+  echo
+done
+
+# Test RCE rule (shell command)
+curl "http://localhost/api.php/execute?cmd=%2Fbin%2Fsh"
+
+# Test RCE rule (system command)
+curl "http://localhost/api.php/execute?cmd=system(%27ls%27)"
+
+# Test LFI rule (/etc/passwd)
+curl "http://localhost/api.php/file?filename=%2Fetc%2Fpasswd"
+
+# Test LFI rule (php wrapper)
+curl "http://localhost/api.php/file?filename=php%3A%2F%2Finput"
+
+# Test Brute Force Basic Auth (lakukan 5x dalam 30 detik)
+for i in {1..5}; do
+  curl -u "user$i:pass$i" "http://localhost/api.php/auth"
+  echo
+done
+
+
+curl -v "http://localhost/api.php/comment?comment=<script>alert(1)</script>"
